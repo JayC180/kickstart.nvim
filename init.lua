@@ -250,7 +250,6 @@ require('lazy').setup({
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) function
   },
-  { 'sbdchd/neoformat' },
   {
     'mrcjkb/rustaceanvim',
     version = '^5', -- Recommended
@@ -266,7 +265,6 @@ require('lazy').setup({
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
   },
-  { 'echasnovski/mini.completion', version = false },
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -300,6 +298,35 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+  {
+  "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+    lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+    dependencies = {
+    -- main one
+    { "ms-jpq/coq_nvim", branch = "coq" },
+
+    -- 9000+ Snippets
+    { "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+    -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+    -- Need to **configure separately**
+    { 'ms-jpq/coq.thirdparty', branch = "3p" }
+    -- - shell repl
+    -- - nvim lua api
+    -- - scientific calculator
+    -- - comment banner
+    -- - etc
+  },
+  init = function()
+    vim.g.coq_settings = {
+        auto_start = true, -- if you want to start COQ at startup
+        -- Your COQ settings here
+      }
+    end,
+    config = function()
+      -- Your LSP settings here
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
