@@ -190,6 +190,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- for menu
+-- mouse users + nvimtree users!
+vim.keymap.set('n', '<RightMouse>', function()
+  vim.cmd.exec '"normal! \\<RightMouse>"'
+
+  local options = vim.bo.ft == 'NvimTree' and 'nvimtree' or 'default'
+  require('menu').open(options, { mouse = true })
+end, {})
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -266,16 +275,6 @@ require('lazy').setup({
     },
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-  },
-  {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     ---@module "ibl"
@@ -300,26 +299,39 @@ require('lazy').setup({
     },
   },
   {
-  "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+    'OXY2DEV/markview.nvim',
+    lazy = false, -- Recommended
+    -- ft = "markdown" -- If you decide to lazy-load anyway
+
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+  },
+  { 'nvchad/volt', lazy = true },
+  { 'nvchad/menu', lazy = true },
+  {
+    'neovim/nvim-lspconfig', -- REQUIRED: for native Neovim LSP integration
     lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
     dependencies = {
-    -- main one
-    { "ms-jpq/coq_nvim", branch = "coq" },
+      -- main one
+      { 'ms-jpq/coq_nvim', branch = 'coq' },
 
-    -- 9000+ Snippets
-    { "ms-jpq/coq.artifacts", branch = "artifacts" },
+      -- 9000+ Snippets
+      { 'ms-jpq/coq.artifacts', branch = 'artifacts' },
 
-    -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
-    -- Need to **configure separately**
-    { 'ms-jpq/coq.thirdparty', branch = "3p" }
-    -- - shell repl
-    -- - nvim lua api
-    -- - scientific calculator
-    -- - comment banner
-    -- - etc
-  },
-  init = function()
-    vim.g.coq_settings = {
+      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+      -- Need to **configure separately**
+      { 'ms-jpq/coq.thirdparty', branch = '3p' },
+      -- - shell repl
+      -- - nvim lua api
+      -- - scientific calculator
+      -- - comment banner
+      -- - etc
+    },
+
+    init = function()
+      vim.g.coq_settings = {
         auto_start = true, -- if you want to start COQ at startup
         -- Your COQ settings here
       }
