@@ -19,4 +19,6 @@ sudo pacman -S --noconfirm neovim git make unzip gcc ripgrep xclip npm go rust &
 - A nerd font
 
 ## Install
-`git clone https://github.com/JayC180/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim`
+```bash
+git clone https://github.com/JayC180/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
