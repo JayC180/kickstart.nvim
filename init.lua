@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -203,6 +203,9 @@ vim.keymap.set('n', '<RightMouse>', function()
   local options = vim.bo.ft == 'NvimTree' and 'nvimtree' or 'default'
   require('menu').open(options, { mouse = true })
 end, {})
+
+vim.keymap.set('n', '<C-b>', ':Neotree toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-f>', ':Neotree focus<CR>', { noremap = true, silent = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
