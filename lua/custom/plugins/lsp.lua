@@ -194,6 +194,7 @@ return {
         cssls = {},
         bashls = {},
         ts_ls = {},
+        jdtls = {},
 
         lua_ls = {
           -- cmd = {...},
