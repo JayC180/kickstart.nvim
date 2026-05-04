@@ -5,12 +5,6 @@ return {
     lazy = false, -- This plugin is already lazy
   },
   {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end,
-  },
-  {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
     lazy = false,
